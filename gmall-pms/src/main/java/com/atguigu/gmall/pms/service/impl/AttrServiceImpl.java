@@ -27,4 +27,18 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return new PageVo(page);
     }
 
+    @Override
+    public PageVo queryByCidAndType(QueryCondition queryCondition, Long cid, Integer type) {
+        QueryWrapper<AttrEntity> Wrapper = new QueryWrapper<>();
+        if (cid != null) {
+        Wrapper.eq("catelog_id", cid);
+        }
+        Wrapper.eq("attr_type", type);
+        IPage<AttrEntity> page = this.page(
+            new Query<AttrEntity>().getPage(queryCondition),
+            Wrapper
+        );
+        return new PageVo(page);
+    }
+
 }

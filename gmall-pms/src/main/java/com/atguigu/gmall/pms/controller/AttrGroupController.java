@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.atguigu.gmall.pms.vo.AttrgroupVo;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -32,6 +33,23 @@ import com.atguigu.gmall.pms.service.AttrGroupService;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
+
+
+    @ApiOperation("属性组关联查询")
+    @GetMapping("withattr/{gid}")
+    public Resp<AttrgroupVo> queryAttrgroupVo(@PathVariable("gid")Long gid){
+        AttrgroupVo attrgroupVo= this.attrGroupService.queryAttrgroupVo(gid);
+        return Resp.ok(attrgroupVo);
+    }
+
+
+
+    @ApiOperation("根据三级分类id分页查询")
+    @GetMapping("{catId}")
+    public Resp<PageVo> queryGruopByCatId(QueryCondition queryCondition,@PathVariable("catId") Long catId) {
+        PageVo page = attrGroupService.queryGruopByCatId(queryCondition,catId);
+        return Resp.ok(page);
+    }
 
     /**
      * 列表
