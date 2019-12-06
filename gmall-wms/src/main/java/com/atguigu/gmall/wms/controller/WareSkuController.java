@@ -1,6 +1,8 @@
 package com.atguigu.gmall.wms.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +34,13 @@ import com.atguigu.gmall.wms.service.WareSkuService;
 public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
+
+    @GetMapping("{skuId}")
+    public Resp<List<WareSkuEntity>> queryWareSkuInfo(@PathVariable("skuId") Long skuId){
+        List<WareSkuEntity> skuEntityList = wareSkuService
+            .list(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId));
+            return Resp.ok(skuEntityList);
+    }
 
     /**
      * 列表

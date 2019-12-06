@@ -39,7 +39,7 @@ public class CategoryController {
      */
     @ApiOperation("商品分级查询")
     @GetMapping
-    public Resp<List<CategoryEntity>> queryCategory(@RequestParam(value = "parentId",required = false)Long parentId,
+    public Resp<List<CategoryEntity>> queryCategory(@RequestParam(value = "parentCid",required = false)Long parentId,
         @RequestParam(value = "level",defaultValue = "0")Integer level){
         List<CategoryEntity> categoryEntities = this.categoryService.queryCategory(level,parentId);
         return Resp.ok(categoryEntities);

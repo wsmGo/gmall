@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.gmall.pms.entity.AttrGroupEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
+import java.util.List;
 
 
 /**
@@ -21,5 +22,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
   PageVo queryGruopByCatId(QueryCondition queryCondition, Long catId);
 
   AttrgroupVo queryAttrgroupVo(Long gid);
+
+  List<AttrgroupVo> getWithattrs(Long catId);
 }
 

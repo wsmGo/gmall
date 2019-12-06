@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.atguigu.gmall.pms.vo.AttrVo;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -73,14 +74,28 @@ public class AttrController {
 
     /**
      * 保存
+     *
      */
-    @ApiOperation("保存")
+/*    @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:attr:save')")
     public Resp<Object> save(@RequestBody AttrEntity attr){
 		attrService.save(attr);
 
         return Resp.ok(null);
+    }*/
+
+    /**
+     * 修改保存方法
+     * @param attrVo
+     * @return
+     */
+    @ApiOperation("保存")
+    @PostMapping("/save")
+    @PreAuthorize("hasAuthority('pms:attr:save')")
+    public Resp<String> save(@RequestBody AttrVo attrVo){
+        attrService.saveAttr(attrVo);
+        return Resp.ok("保存成功");
     }
 
     /**

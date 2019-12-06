@@ -81,4 +81,13 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return attrgroupVo;
     }
 
+    @Override
+    public List<AttrgroupVo> getWithattrs(Long catId) {
+        //根据catid查询出attrgroup的集合
+        List<AttrGroupEntity> attrGroupEntities = this
+            .list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catId));
+        //再将attrGroupEntities集合通过stream转换成AttrgroupVo集合 里面还有attrEntity参数 通过上面的方法通过传入gid获取
+        return attrGroupEntities.stream().map(t->this.queryAttrgroupVo(t.getAttrGroupId())).collect(Collectors.toList());
+    }
+
 }

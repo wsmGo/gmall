@@ -1,5 +1,6 @@
 package com.atguigu.gmall.sms.controller;
 
+import com.atguigu.gmall.sms.vo.SkuSaleVO;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -33,6 +34,16 @@ public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
 
+    /**
+     * 添加sku
+     * @param skuSaleVO
+     * @return
+     */
+    @PostMapping("/saveSkuSale/SaleVo")
+    public Resp<Object> saveSkuSale(@RequestBody SkuSaleVO skuSaleVO){
+        this.skuBoundsService.saveSkuSale(skuSaleVO);
+        return Resp.ok(null);
+    }
     /**
      * 列表
      */

@@ -1,6 +1,9 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.atguigu.gmall.pms.dao.SkuInfoDao;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +36,20 @@ public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
 
+    @Autowired
+    private SkuInfoDao skuInfoDao;
+    /**
+     * 根据spuId查询skuInfo信息
+     */
+    @ApiOperation("查询skuInfo信息")
+    @GetMapping("{spuId}")
+    public Resp<List<SkuInfoEntity>> querySkInfo(@PathVariable("spuId")Long spuId){
+        QueryWrapper<SkuInfoEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("spu_id", spuId);
+        List<SkuInfoEntity> skuInfoEntities = skuInfoDao.selectList(wrapper);
+        return Resp.ok(skuInfoEntities);
+    }
+
     /**
      * 列表
      */
@@ -40,6 +57,8 @@ public class SkuInfoController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('pms:skuinfo:list')")
     public Resp<PageVo> list(QueryCondition queryCondition) {
+
+
         PageVo page = skuInfoService.queryPage(queryCondition);
 
         return Resp.ok(page);

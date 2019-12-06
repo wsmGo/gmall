@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.atguigu.gmall.pms.vo.SpuInfoVo;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -34,6 +35,18 @@ public class SpuInfoController {
     private SpuInfoService spuInfoService;
 
     /**
+     * 根据cid分类spu
+     * @param condition
+     * @param catId
+     * @return
+     */
+    @GetMapping
+    public Resp<PageVo> querySpuInfo(QueryCondition condition,@RequestParam("catId")Long catId){
+
+        PageVo pageVo = this.spuInfoService.querySpuInfo(condition,catId);
+        return Resp.ok(pageVo);
+    }
+    /**
      * 列表
      */
     @ApiOperation("分页查询(排序)")
@@ -64,9 +77,9 @@ public class SpuInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
-
+    public Resp<Object> bigSave(@RequestBody SpuInfoVo spuInfoVo){
+	//	spuInfoService.save(spuInfo);
+    this.spuInfoService.bigSave(spuInfoVo);
         return Resp.ok(null);
     }
 
