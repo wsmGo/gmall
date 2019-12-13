@@ -17,4 +17,5 @@ import lombok.Data;
 public class AttrgroupVo extends AttrGroupEntity {
   private List<AttrEntity> attrEntities;
   private List<AttrAttrgroupRelationEntity> relations;
+
 }

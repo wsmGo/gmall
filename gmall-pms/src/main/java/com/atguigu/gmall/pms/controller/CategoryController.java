@@ -1,8 +1,8 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -45,7 +45,18 @@ public class CategoryController {
         return Resp.ok(categoryEntities);
     }
 
+    /**
+     * 查询二级三级分类
+     * @param pid
+     * @return
+     */
+    @GetMapping("{pid}")
+    public Resp<List<CategoryVO>> querySubCategories(@PathVariable("pid") Long pid){
 
+        List<CategoryVO> categoryVOS =  this.categoryService.querySubCategories(pid);
+
+        return Resp.ok(categoryVOS);
+    }
     /**
      * 列表
      */

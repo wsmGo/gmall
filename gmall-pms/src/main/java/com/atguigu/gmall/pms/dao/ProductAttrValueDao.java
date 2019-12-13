@@ -2,6 +2,7 @@ package com.atguigu.gmall.pms.dao;
 
 import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,5 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ProductAttrValueDao extends BaseMapper<ProductAttrValueEntity> {
-	
+
+
+  List<ProductAttrValueEntity> queryAttrvBySpuId(Long spuId);
 }

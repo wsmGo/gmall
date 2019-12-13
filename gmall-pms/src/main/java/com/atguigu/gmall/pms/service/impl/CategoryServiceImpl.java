@@ -1,10 +1,9 @@
 package com.atguigu.gmall.pms.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -44,5 +43,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             wrapper.eq("parent_cid", parentId);
         }
         return this.categoryDao.selectList(wrapper);
+    }
+
+    @Override
+    public List<CategoryVO> querySubCategories(Long pid) {
+
+        return categoryDao.querySubCategories(pid);
     }
 }

@@ -2,7 +2,6 @@ package com.atguigu.gmall.pms.controller;
 
 import com.atguigu.gmall.pms.vo.SpuInfoVo;
 import java.util.Arrays;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -10,6 +9,7 @@ import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +46,16 @@ public class SpuInfoController {
         PageVo pageVo = this.spuInfoService.querySpuInfo(condition,catId);
         return Resp.ok(pageVo);
     }
+
+    @PostMapping("page")
+    public Resp<List<SpuInfoEntity>> querySpuByPage(@RequestBody QueryCondition queryCondition) {
+        PageVo pageVo = spuInfoService.queryPage(queryCondition);
+        List<SpuInfoEntity> spuList = (List<SpuInfoEntity>)pageVo.getList();
+        return Resp.ok(spuList);
+    }
+
+
+
     /**
      * 列表
      */
@@ -54,7 +64,6 @@ public class SpuInfoController {
     @PreAuthorize("hasAuthority('pms:spuinfo:list')")
     public Resp<PageVo> list(QueryCondition queryCondition) {
         PageVo page = spuInfoService.queryPage(queryCondition);
-
         return Resp.ok(page);
     }
 

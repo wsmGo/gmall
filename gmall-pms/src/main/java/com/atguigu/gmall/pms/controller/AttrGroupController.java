@@ -1,10 +1,8 @@
 package com.atguigu.gmall.pms.controller;
 
 import com.atguigu.gmall.pms.vo.AttrgroupVo;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;

@@ -2,7 +2,6 @@ package com.atguigu.gmall.pms.service.impl;
 
 import com.atguigu.gmall.pms.dao.AttrDao;
 import com.atguigu.gmall.pms.dao.SkuInfoDao;
-import com.atguigu.gmall.pms.dao.SpuInfoDescDao;
 import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
 import com.atguigu.gmall.pms.entity.SkuImagesEntity;
 import com.atguigu.gmall.pms.entity.SkuSaleAttrValueEntity;
@@ -16,13 +15,16 @@ import com.atguigu.gmall.pms.vo.ProductAttrVo;
 import com.atguigu.gmall.pms.vo.SkuInfoVo;
 import com.atguigu.gmall.pms.vo.SpuInfoVo;
 import com.atguigu.gmall.sms.vo.SkuSaleVO;
+import io.seata.spring.annotation.GlobalTransactional;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -62,6 +64,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
   @Autowired
   private SpuInfoDescService spuInfoDescService;
 
+  @Autowired
+  private AmqpTemplate amqpTemplate;
+
+  @Value("${item.rabbitmq.exchange}")
+  private String GMALLPMS_EXCHANGE;
+
+
   @Override
   public PageVo queryPage(QueryCondition params) {
     IPage<SpuInfoEntity> page = this.page(
@@ -92,6 +101,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
   }
 
   @Override
+  @GlobalTransactional
   public void bigSave(SpuInfoVo spuInfoVo) {
     //spu相关信息
     //1.pms_spu_info 默认上架 添加创建时间和更新时间 并获取spuid
@@ -102,7 +112,16 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     this.saveProductAttrValue(spuInfoVo, spuId);
     //4.保存sku信息
     this.saveSkuInfo(spuInfoVo, spuId);
+    this.sendMsg("insert", spuId);
+   // int i = 1/0;
   }
+
+  private  void sendMsg(String type,Long spuId){
+    System.out.println("=============================================="+spuId);
+    this.amqpTemplate.convertAndSend(GMALLPMS_EXCHANGE, "item."+type, spuId);
+  }
+
+
 
   private void saveSkuInfo(SpuInfoVo spuInfoVo, Long spuId) {
     //1.先判断sku是否为空
@@ -154,6 +173,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
       BeanUtils.copyProperties(skuInfoVo, skuSaleVO);
       skuSaleVO.setSkuId(skuId);
       gmallSmsClient.saveSkuSale(skuSaleVO);
+
     });
   }
 

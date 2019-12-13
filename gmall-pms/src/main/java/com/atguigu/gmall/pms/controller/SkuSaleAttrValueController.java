@@ -1,7 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -41,7 +40,6 @@ public class SkuSaleAttrValueController {
     @PreAuthorize("hasAuthority('pms:skusaleattrvalue:list')")
     public Resp<PageVo> list(QueryCondition queryCondition) {
         PageVo page = skuSaleAttrValueService.queryPage(queryCondition);
-
         return Resp.ok(page);
     }
 
