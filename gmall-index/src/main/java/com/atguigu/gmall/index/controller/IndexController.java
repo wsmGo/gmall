@@ -38,7 +38,9 @@ public class IndexController {
    */
   @GetMapping("cates/{pid}")
   public  Resp<List<CategoryVO>> querySubCategorise(@PathVariable("pid") Long pid){
+
     List<CategoryVO> categoryVOS =indexService.querySubCategoriseByPid(pid);
+
     return Resp.ok(categoryVOS);
   }
 

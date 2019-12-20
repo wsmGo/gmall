@@ -42,3 +42,7 @@ spring:
           filters:
             - RewritePath=/api(?<segment>/?.*),/$\{segment}
 
+gmall:
+  jwt:
+    pubKeyPath: F:\\ideadevelop\\rsa.pub # 公钥地址
+    cookieName: GMALL_TOKEN

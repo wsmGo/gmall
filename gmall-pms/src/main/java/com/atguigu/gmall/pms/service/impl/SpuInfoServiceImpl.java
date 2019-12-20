@@ -113,14 +113,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     //4.保存sku信息
     this.saveSkuInfo(spuInfoVo, spuId);
     this.sendMsg("insert", spuId);
-   // int i = 1/0;
+    // int i = 1/0;
   }
 
-  private  void sendMsg(String type,Long spuId){
-    System.out.println("=============================================="+spuId);
-    this.amqpTemplate.convertAndSend(GMALLPMS_EXCHANGE, "item."+type, spuId);
+  private void sendMsg(String type, Long spuId) {
+    this.amqpTemplate.convertAndSend(GMALLPMS_EXCHANGE, "item." + type, spuId);
   }
-
 
 
   private void saveSkuInfo(SpuInfoVo spuInfoVo, Long spuId) {
@@ -192,7 +190,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
       productAttrValueService.saveBatch(productAttrValueEntities);
     }
   }
-
 
 
   private Long saveSpuInfo(SpuInfoVo spuInfoVo) {

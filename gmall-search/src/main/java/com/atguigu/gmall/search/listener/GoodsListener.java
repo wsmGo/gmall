@@ -45,11 +45,9 @@ public class GoodsListener {
       key = {"item.insert","item.update"}
   ))
   public void listener(Long spuId){
-    System.out.println("2==========================================");
     Resp<List<SkuInfoEntity>> skuResp = this.pmsClient.querySkInfo(spuId);
     List<SkuInfoEntity> skuInfoEntities = skuResp.getData();
     if (!CollectionUtils.isEmpty(skuInfoEntities)) {
-      System.out.println("2==========================================");
       //把sku转化成goods对象
       List<Goods> goodsList = skuInfoEntities.stream().map(skuInfoEntity -> {
         Goods goods = new Goods();
@@ -105,12 +103,10 @@ public class GoodsListener {
               .anyMatch(wareSkuEntity -> wareSkuEntity.getStock() > 0);
           goods.setStore(flag);
           goods.setTitle(skuInfoEntity.getSkuTitle());
-          System.out.println("1==========================================");
         }
         return goods;
       }).collect(Collectors.toList());
       //批量加入到索引库
-      System.out.println(goodsList.size()+"==========================================");
       this.goodsRepository.saveAll(goodsList);
     }
 

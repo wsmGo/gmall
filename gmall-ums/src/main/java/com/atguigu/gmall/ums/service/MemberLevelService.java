@@ -11,7 +11,7 @@ import com.atguigu.core.bean.QueryCondition;
  *
  * @author 530
  * @email 529014751@qq.com
- * @date 2019-12-02 19:23:49
+ * @date 2019-12-16 21:19:31
  */
 public interface MemberLevelService extends IService<MemberLevelEntity> {
 

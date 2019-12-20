@@ -1,5 +1,6 @@
 package com.atguigu.gmall.wms.controller;
 
+import com.atguigu.gmall.wms.vo.SkuLockVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,15 @@ import com.atguigu.gmall.wms.service.WareSkuService;
 public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
+
+
+    @PostMapping
+    public Resp<Object> checkAndLockStore(@RequestBody List<SkuLockVO> skuLockVOS){
+
+        String msg = this.wareSkuService.checkAndLockStore(skuLockVOS);
+        return  Resp.ok(msg);
+    }
+
 
     @GetMapping("{skuId}")
     public Resp<List<WareSkuEntity>> queryWareSkuInfo(@PathVariable("skuId") Long skuId){

@@ -10,6 +10,5 @@ import lombok.Data;
  */
 @Data
 public class CategoryVO extends CategoryEntity {
-
   private List<CategoryEntity> subs;
 }

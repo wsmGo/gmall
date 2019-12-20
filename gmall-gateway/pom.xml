@@ -27,6 +27,10 @@
       <version>1.0-SNAPSHOT</version>
       <exclusions>
         <exclusion>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-core</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>com.baomidou</groupId>
           <artifactId>mybatis-plus-boot-starter</artifactId>
         </exclusion>

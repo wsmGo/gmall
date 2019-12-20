@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 
  * @author 530
  * @email 529014751@qq.com
- * @date 2019-12-02 19:23:49
+ * @date 2019-12-16 21:19:31
  */
 @Mapper
 public interface MemberLoginLogDao extends BaseMapper<MemberLoginLogEntity> {

@@ -7,8 +7,12 @@ import com.atguigu.core.bean.Resp;
 import com.atguigu.gmall.pms.entity.BrandEntity;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
+import com.atguigu.gmall.pms.entity.SkuImagesEntity;
 import com.atguigu.gmall.pms.entity.SkuInfoEntity;
+import com.atguigu.gmall.pms.entity.SkuSaleAttrValueEntity;
+import com.atguigu.gmall.pms.entity.SpuInfoDescEntity;
 import com.atguigu.gmall.pms.entity.SpuInfoEntity;
+import com.atguigu.gmall.pms.vo.BaseGroupVO;
 import com.atguigu.gmall.pms.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -39,6 +43,25 @@ public interface GmallPmsApi {
    */
   @GetMapping("pms/skuinfo/{spuId}")
   public Resp<List<SkuInfoEntity>> querySkInfo(@PathVariable("spuId")Long spuId);
+
+  /**
+   * 根据skuid查询sku的消息
+   * @param skuId
+   * @return
+   */
+  @GetMapping("pms/skuinfo/info/{skuId}")
+  public Resp<SkuInfoEntity> querySkuInfoBySkuId(@PathVariable("skuId") Long skuId);
+
+  /**
+   * 根据skuid查询图片列表
+   * @param skuId
+   * @return
+   */
+  @GetMapping("pms/skuimages/item/{skuId}")
+  public Resp<List<SkuImagesEntity>> queryImagesBySkuId(@PathVariable("skuId") Long skuId);
+
+  @GetMapping("pms/spuinfodesc/info/{spuId}")
+  public Resp<SpuInfoDescEntity> querySpuDesc(@PathVariable("spuId") Long spuId);
   /**
    *3)根据品牌id查询品牌(brandName)
    * @param brandId
@@ -83,4 +106,29 @@ public interface GmallPmsApi {
 
   @GetMapping("pms/spuinfo/info/{id}")
   public Resp<SpuInfoEntity> querySpuById(@PathVariable("id") Long id);
+
+  /**
+   * 根据spu查询每个sku的查询销售属性
+   * @param spuId
+   * @return
+   */
+  @GetMapping("pms/skusaleattrvalue/{spuId}")
+  public Resp<List<SkuSaleAttrValueEntity>> querySaleAttrsBySpuId(@PathVariable("spuId") Long spuId);
+
+  /**
+   * 根据skuid获取查询销售属性
+   * @param skuId
+   * @return
+   */
+  @GetMapping("pms/skusaleattrvalue/cart/{skuId}")
+  public Resp<List<SkuSaleAttrValueEntity>> querySaleAttrsByskuId(@PathVariable("skuId") Long skuId);
+  /**
+   * 查询每个spu的分组规格规格属性
+   * @param cid
+   * @param spuId
+   * @return
+   */
+  @GetMapping("pms/attrgroup/item/{cid}/{spuId}")
+  public Resp<List<BaseGroupVO>> queryGroupVoByCidAndSpuid(@PathVariable("cid") Long cid,@PathVariable("spuId") Long spuId);
+
 }

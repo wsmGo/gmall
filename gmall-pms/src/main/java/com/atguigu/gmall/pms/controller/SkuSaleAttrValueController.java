@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 
 
@@ -8,6 +9,7 @@ import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,17 @@ public class SkuSaleAttrValueController {
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
+    @GetMapping("{spuId}")
+    public Resp<List<SkuSaleAttrValueEntity>> querySaleAttrsBySpuId(@PathVariable("spuId") Long spuId){
+        List<SkuSaleAttrValueEntity> attrValueEntities = this.skuSaleAttrValueService.querySaleAttrsBySpuId(spuId);
+        return Resp.ok(attrValueEntities);
+    }
+    @GetMapping("cart/{skuId}")
+    public Resp<List<SkuSaleAttrValueEntity>> querySaleAttrsByskuId(@PathVariable("skuId") Long skuId){
+        List<SkuSaleAttrValueEntity> attrValueEntityList = this.skuSaleAttrValueService
+            .list(new QueryWrapper<SkuSaleAttrValueEntity>().eq("sku_id", skuId));
+        return Resp.ok(attrValueEntityList);
+    }
     /**
      * 列表
      */

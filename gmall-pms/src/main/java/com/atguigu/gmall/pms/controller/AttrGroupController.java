@@ -1,6 +1,7 @@
 package com.atguigu.gmall.pms.controller;
 
 import com.atguigu.gmall.pms.vo.AttrgroupVo;
+import com.atguigu.gmall.pms.vo.BaseGroupVO;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +34,17 @@ import com.atguigu.gmall.pms.service.AttrGroupService;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
+
+
+
+    @GetMapping("/item/{cid}/{spuId}")
+    public Resp<List<BaseGroupVO>> queryGroupVoByCidAndSpuid(@PathVariable("cid") Long cid,@PathVariable("spuId") Long spuId){
+
+        List<BaseGroupVO> baseGroupVOS = this.attrGroupService.queryGroupVoByCidAndSpuid(cid,spuId);
+
+        return Resp.ok(baseGroupVOS);
+
+    }
 
     @ApiOperation("查询分类下的组及规格参数")
     @GetMapping("/withattrs/cat/{catId}")
@@ -117,5 +129,7 @@ public class AttrGroupController {
 
         return Resp.ok(null);
     }
+
+
 
 }

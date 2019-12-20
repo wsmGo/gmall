@@ -1,7 +1,6 @@
 package com.atguigu.gmall.ums.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -24,7 +23,7 @@ import com.atguigu.gmall.ums.service.IntegrationChangeHistoryService;
  *
  * @author 530
  * @email 529014751@qq.com
- * @date 2019-12-02 19:23:49
+ * @date 2019-12-16 21:19:31
  */
 @Api(tags = "积分变化历史记录 管理")
 @RestController

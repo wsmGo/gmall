@@ -1,7 +1,9 @@
 package com.atguigu.gmall.sms.controller;
 
+import com.atguigu.gmall.sms.vo.SaleVO;
 import com.atguigu.gmall.sms.vo.SkuSaleVO;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +35,18 @@ import com.atguigu.gmall.sms.service.SkuBoundsService;
 public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    /**
+     *查询营销信息的方法
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/item/{skuId}")
+    public Resp<List<SaleVO>> querySalsVosBySkuid(@PathVariable("skuId")Long skuId){
+        List<SaleVO> saleVOS = this.skuBoundsService.querySalsVosBySkuid(skuId);
+
+        return Resp.ok(saleVOS);
+    }
 
     /**
      * 添加sku

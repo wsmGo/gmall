@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import java.util.Arrays;
 
 
@@ -52,7 +53,7 @@ public class SpuInfoDescController {
     @GetMapping("/info/{spuId}")
     @PreAuthorize("hasAuthority('pms:spuinfodesc:info')")
     public Resp<SpuInfoDescEntity> info(@PathVariable("spuId") Long spuId){
-		SpuInfoDescEntity spuInfoDesc = spuInfoDescService.getById(spuId);
+		SpuInfoDescEntity spuInfoDesc = spuInfoDescService.getOne(new QueryWrapper<SpuInfoDescEntity>().eq("spu_id",spuId));
 
         return Resp.ok(spuInfoDesc);
     }
